@@ -1,6 +1,7 @@
 """Метакласс Custom"""
 from abc import ABCMeta
 
+
 class Custom(ABCMeta):
     @staticmethod
     def __new__(mcs, name, bases, classdict):
