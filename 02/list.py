@@ -4,10 +4,11 @@ from collections.abc import Iterable
 
 
 def flatten(values):
+    """ Returns flatten values always as a list of depth 1. """
     for item in values:
         if isinstance(item, Iterable):
-            for x in flatten(item):
-                yield x
+            for i in flatten(item):
+                yield i
         else:
             yield item
 
@@ -21,7 +22,8 @@ class MyList(list):
     """
 
     def __init__(self, *args):
-        super(MyList, self).__init__()
+        """ Init an instance of class. """
+        super().__init__()
         if args is None:
             self.values = list()
         else:
@@ -39,6 +41,8 @@ class MyList(list):
             return self.values + other
         elif isinstance(other, numbers.Rational):
             return MyList(self.values + [other])
+        else:
+            return MyList(self.values + other)
 
     def __sub__(self, other):
         """ Return [self] && ![other]. """
@@ -76,9 +80,11 @@ class MyList(list):
         return src.values
 
     def __radd__(self, other):
+        """ Implement [self] || [other] for objects with no implemented method. """
         return self.__add__(other)
 
     def __rsub__(self, other):
+        """ Implement [self] && ![other] for objects with no implemented method. """
         return self.__sub__(other)
 
     def __iadd__(self, other):
@@ -103,18 +109,18 @@ class MyList(list):
 
     def __eq__(self, other):
         """ Return [self] == [other]. """
-        x = sorted(self.values)
+        x_val = sorted(self.values)
         x_size = len(self.values)
         if isinstance(other, MyList):
-            y = sorted(other.values)
+            y_val = sorted(other.values)
             y_size = len(other.values)
         else:
-            y = sorted(other)
+            y_val = sorted(other)
             y_size = len(other)
         res = True
         if x_size == y_size:
-            for i in range(len(x)):
-                if x[i] != y[i]:
+            for i in range(x_size):
+                if x_val[i] != y_val[i]:
                     res = False
                     break
         else:
@@ -123,7 +129,7 @@ class MyList(list):
 
     def __ne__(self, other):
         """ Return [self] != [other]. """
-        return not (self.values == other.values)
+        return not self.values == other.values
 
     def __gt__(self, other):
         """ Return len([self]) > len([other]). """
@@ -135,11 +141,15 @@ class MyList(list):
 
     def __ge__(self, other):
         """ Return len([self]) >= len([other]). """
-        return len(self.values) > len(other.values) if len(self.values) != len(other.values) else sorted(self.values) == sorted(other.values)
+        return len(self.values) > len(other.values)\
+            if len(self.values) != len(other.values)\
+            else sorted(self.values) == sorted(other.values)
 
     def __le__(self, other):
         """ Return len([self]) <= len([other]). """
-        return len(self.values) < len(other.values) if len(self.values) != len(other.values) else sorted(self.values) == sorted(other.values)
+        return len(self.values) < len(other.values)\
+            if len(self.values) != len(other.values)\
+            else sorted(self.values) == sorted(other.values)
 
     def append(self, *args):
         """ Append object to the end of the list. """
@@ -177,5 +187,7 @@ class MyList(list):
     def sort(self, key=None, reverse=False):
         """ Sort the list in ascending order and return None.
         The reverse flag can be set to sort in descending order. """
-        self.values = sorted(self.values, key=key) if reverse is False else sorted(self.values, key=lambda x: -x)
+        self.values = sorted(self.values, key=key)\
+            if reverse is False\
+            else sorted(self.values, key=lambda x: -x)
         return self.values

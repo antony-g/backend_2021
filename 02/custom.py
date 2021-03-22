@@ -3,11 +3,13 @@ from abc import ABCMeta
 
 
 class Custom(ABCMeta):
+    """Метакласс Custom"""
     @staticmethod
-    def __new__(mcs, name, bases, classdict):
-        name = "Custom{0}".format(name)
+    def __new__(cls, *args, **kwargs):
+        name = "Custom{0}".format(args[0])
+        bases = args[1]
         classdict = {key if key[0:2] == "__"
                 else "custom_{0}".format(key): value
-                for key, value in classdict.items()}
+                for key, value in args[2].items()}
 
-        return super().__new__(mcs, name, bases, classdict)
+        return super().__new__(cls, name, bases, classdict)

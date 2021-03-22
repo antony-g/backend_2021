@@ -1,150 +1,180 @@
+"""Класс Список. Unittest"""
 import unittest
 from list import MyList
 
 
 class MyListOperatorTest(unittest.TestCase):
+    "Class Docstring"
+
     def test_eq(self):
+        "Docstring"
         self.assertTrue(MyList(1, 2, 3) == MyList(3, 2, 1))
 
     def test_ne(self):
+        "Docstring"
         self.assertTrue(MyList(1, 2, 3) != MyList(4, 5, 6))
 
     def test_gt(self):
+        "Docstring"
         self.assertTrue(MyList(1, 2, 3) > MyList(1, 2))
 
     def test_ge(self):
+        "Docstring"
         self.assertTrue(MyList(1, 2, 3) >= MyList(4, 5))
 
     def test_add_1(self):
-        x = MyList(1, 2, 3)
-        y = MyList(4, 5, 6)
-        z = x + y
-        self.assertEqual(z, MyList(1, 2, 3, 4, 5, 6))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = MyList(4, 5, 6)
+        k = i + j
+        self.assertEqual(k, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_2(self):
-        x = MyList(1, 2, 3)
-        y = [4, 5, 6]
-        z = x + y
-        self.assertEqual(z, MyList(1, 2, 3, 4, 5, 6))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = [4, 5, 6]
+        k = i + j
+        self.assertEqual(k, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_3(self):
-        x = MyList(1, 2)
-        y = 3
-        z = x + y
-        self.assertEqual(z, MyList(1, 2, 3))
+        "Docstring"
+        i = MyList(1, 2)
+        j = 3
+        k = i + j
+        self.assertEqual(k, MyList(1, 2, 3))
 
     def test_sub_1(self):
-        x = MyList(1, 2, 3)
-        y = MyList(3, 4, 5)
-        z = x - y
-        self.assertEqual(z, MyList(1, 2))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = MyList(3, 4, 5)
+        k = i - j
+        self.assertEqual(k, MyList(1, 2))
 
     def test_sub_2(self):
-        x = MyList(1, 2, 3)
-        y = [3, 4, 5]
-        z = x - y
-        self.assertEqual(z, MyList(1, 2))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = [3, 4, 5]
+        k = i - j
+        self.assertEqual(k, MyList(1, 2))
 
     def test_sub_3(self):
-        x = MyList(1, 2, 3)
-        y = 3
-        z = x - y
-        self.assertEqual(z, MyList(1, 2))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = 3
+        k = i - j
+        self.assertEqual(k, MyList(1, 2))
 
     def test_mul_1(self):
-        x = MyList(1, 2, 3)
-        y = MyList(3, 4, 5)
-        z = x * y
-        self.assertEqual(z, MyList(3))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = MyList(3, 4, 5)
+        k = i * j
+        self.assertEqual(k, MyList(3))
 
     def test_mul_2(self):
-        x = MyList(1, 2, 3)
-        y = [3, 4, 5]
-        z = x * y
-        self.assertEqual(z, MyList(3))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = [3, 4, 5]
+        k = i * j
+        self.assertEqual(k, MyList(3))
 
     def test_mul_3(self):
-        x = MyList(1, 2, 3)
-        y = 3
-        z = x * y
-        self.assertEqual(z, MyList(3))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = 3
+        k = i * j
+        self.assertEqual(k, MyList(3))
 
     def test_iadd(self):
-        x = MyList(1, 2, 3)
-        x += 3
-        self.assertEqual(x, MyList(4, 5, 6))
+        "Docstring"
+        i = MyList(1, 2, 3)
+        i += 3
+        self.assertEqual(i, MyList(4, 5, 6))
 
     def test_isub(self):
-        x = MyList(6, 5, 4)
-        x -= 3
-        self.assertEqual(x, MyList(3, 2, 1))
+        "Docstring"
+        i = MyList(6, 5, 4)
+        i -= 3
+        self.assertEqual(i, MyList(3, 2, 1))
 
     def test_abs(self):
-        x = MyList(1, -2, 3)
-        y = abs(x)
-        self.assertEqual(y, MyList(1, 2, 3))
+        "Docstring"
+        i = MyList(1, -2, 3)
+        j = abs(i)
+        self.assertEqual(j, MyList(1, 2, 3))
 
     def test_neg(self):
-        x = MyList(1, -2, 3)
-        y = -x
-        self.assertEqual(y, MyList(-1, 2, -3))
+        "Docstring"
+        i = MyList(1, -2, 3)
+        j = -i
+        self.assertEqual(j, MyList(-1, 2, -3))
 
 
 class MyListMethodTest(unittest.TestCase):
+    "Class Docstring"
 
     def test_append(self):
-        x = MyList(1, 2)
-        x.append(3)
-        y = MyList(1, 2, 3)
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(1, 2)
+        i.append(3)
+        j = MyList(1, 2, 3)
+        self.assertEqual(i, j)
 
     def test_clear(self):
-        x = MyList(1, 2, 3)
-        x.clear()
-        y = MyList()
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(1, 2, 3)
+        i.clear()
+        j = MyList()
+        self.assertEqual(i, j)
 
     def test_copy(self):
-        x = MyList(1, 2, 3)
-        y = x.copy()
-        self.assertTrue(x is not y)
+        "Docstring"
+        i = MyList(1, 2, 3)
+        j = i.copy()
+        self.assertTrue(i is not j)
 
     def test_count(self):
-        x = MyList(0, 1, 1, 2, 3, 5, 8, 13)
-        self.assertEqual(x.count(0), 1)
-        self.assertEqual(x.count(1), 2)
-        self.assertEqual(x.count(10), 0)
+        "Docstring"
+        i = MyList(0, 1, 1, 2, 3, 5, 8, 13)
+        self.assertEqual(i.count(0), 1)
+        self.assertEqual(i.count(1), 2)
+        self.assertEqual(i.count(10), 0)
 
     def test_index(self):
-        x = MyList(0, 1, 1, 2, 3, 5, 8, 13)
-        self.assertEqual(x.index(0), 0)
-        self.assertEqual(x.index(1), 1)
+        "Docstring"
+        i = MyList(0, 1, 1, 2, 3, 5, 8, 13)
+        self.assertEqual(i.index(0), 0)
+        self.assertEqual(i.index(1), 1)
         with self.assertRaises(ValueError):
-            x.index(10)
+            i.index(10)
 
     def test_remove(self):
-        x = MyList(0, 1, 1, 2, 3, 5, 8, 13)
-        x.remove(1)
-        y = MyList(0, 1, 2, 3, 5, 8, 13)
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(0, 1, 1, 2, 3, 5, 8, 13)
+        i.remove(1)
+        j = MyList(0, 1, 2, 3, 5, 8, 13)
+        self.assertEqual(i, j)
 
     def test_sort_1(self):
-        x = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
-        x.sort()
-        y = MyList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
+        i.sort()
+        j = MyList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        self.assertEqual(i, j)
 
     def test_sort_2(self):
-        x = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
-        x.sort(reverse=True)
-        y = MyList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
+        i.sort(reverse=True)
+        j = MyList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+        self.assertEqual(i, j)
 
     def test_sort_3(self):
-        x = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
-        x.sort(key=lambda x: -x)
-        y = MyList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-        self.assertEqual(x, y)
+        "Docstring"
+        i = MyList(8, 9, 10, 7, 6, 5, 0, 1, 2, 4, 3)
+        i.sort(key=lambda x: -x)
+        j = MyList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+        self.assertEqual(i, j)
 
 
 if __name__ == '__main__':
