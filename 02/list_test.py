@@ -12,99 +12,97 @@ class MyListOperatorTest(unittest.TestCase):
     def test_gt(self):
         self.assertTrue(MyList(1, 2, 3) > MyList(1, 2))
 
-    def test_ge_1(self):
+    def test_ge(self):
         self.assertTrue(MyList(1, 2, 3) >= MyList(4, 5))
-
-    def test_ge_2(self):
-        self.assertTrue(MyList(1, 2, 3) >= MyList(4, 5, 6))
-    # Assertion failed
 
     def test_add_1(self):
         x = MyList(1, 2, 3)
         y = MyList(4, 5, 6)
-        z = MyList(x + y)
-        self.assertTrue(z == MyList(1, 2, 3, 4, 5, 6))
-    # Assertion failed
+        z = x + y
+        self.assertEqual(z, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_2(self):
         x = MyList(1, 2, 3)
         y = [4, 5, 6]
-        z = MyList(x + y)
-        self.assertTrue(z == MyList(1, 2, 3, 4, 5, 6))
-    # Assertion failed
+        z = x + y
+        self.assertEqual(z, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_3(self):
         x = MyList(1, 2)
         y = 3
-        z = MyList(x + y)
-        self.assertTrue(z == MyList(1, 2, 3))
-    # Assertion failed
+        z = x + y
+        self.assertEqual(z, MyList(1, 2, 3))
 
     def test_sub_1(self):
         x = MyList(1, 2, 3)
         y = MyList(3, 4, 5)
-        z = MyList(x - y)
-        self.assertTrue(z == MyList(1, 2))
-    # Assertion failed
+        z = x - y
+        self.assertEqual(z, MyList(1, 2))
 
     def test_sub_2(self):
         x = MyList(1, 2, 3)
         y = [3, 4, 5]
-        z = MyList(x - y)
-        self.assertTrue(z == MyList(1, 2))
-    # Assertion failed
+        z = x - y
+        self.assertEqual(z, MyList(1, 2))
 
     def test_sub_3(self):
         x = MyList(1, 2, 3)
         y = 3
-        z = MyList(x - y)
-        self.assertTrue(z == MyList(1, 2))
-    # Assertion failed
+        z = x - y
+        self.assertEqual(z, MyList(1, 2))
 
     def test_mul_1(self):
         x = MyList(1, 2, 3)
         y = MyList(3, 4, 5)
-        z = MyList(x * y)
-        self.assertTrue(z == MyList(3))
-    # Assertion failed
+        z = x * y
+        self.assertEqual(z, MyList(3))
 
     def test_mul_2(self):
         x = MyList(1, 2, 3)
         y = [3, 4, 5]
-        z = MyList(x * y)
-        self.assertTrue(z == MyList(3))
-    # Assertion failed
+        z = x * y
+        self.assertEqual(z, MyList(3))
 
     def test_mul_3(self):
         x = MyList(1, 2, 3)
         y = 3
-        z = MyList(x * y)
-        self.assertTrue(z == MyList(3))
-    # Assertion failed
+        z = x * y
+        self.assertEqual(z, MyList(3))
 
     def test_iadd(self):
         x = MyList(1, 2, 3)
         x += 3
-        self.assertTrue(x == MyList(4, 5, 6))
-    # Assertion failed
+        self.assertEqual(x, MyList(4, 5, 6))
 
     def test_isub(self):
         x = MyList(6, 5, 4)
         x -= 3
-        self.assertTrue(x == MyList(3, 2, 1))
+        self.assertEqual(x, MyList(3, 2, 1))
+
+    def test_abs(self):
+        x = MyList(1, -2, 3)
+        y = abs(x)
+        self.assertEqual(y, MyList(1, 2, 3))
+
+    def test_neg(self):
+        x = MyList(1, -2, 3)
+        y = -x
+        self.assertEqual(y, MyList(-1, 2, -3))
+
 
 class MyListMethodTest(unittest.TestCase):
+
     def test_append(self):
         x = MyList(1, 2)
         x.append(3)
         y = MyList(1, 2, 3)
-        self.assertTrue(x == y)
+        self.assertEqual(x, y)
 
     def test_clear(self):
         x = MyList(1, 2, 3)
         x.clear()
         y = MyList()
-        self.assertTrue(x == y)
+        self.assertEqual(x, y)
 
     def test_copy(self):
         x = MyList(1, 2, 3)

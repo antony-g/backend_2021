@@ -1,5 +1,15 @@
 """Класс Список"""
 import numbers
+from collections.abc import Iterable
+
+
+def flatten(values):
+    for item in values:
+        if isinstance(item, Iterable):
+            for x in flatten(item):
+                yield x
+        else:
+            yield item
 
 
 class MyList(list):
@@ -15,7 +25,7 @@ class MyList(list):
         if args is None:
             self.values = list()
         else:
-            self.values = list(args)
+            self.values = list(flatten(args))
 
     def __repr__(self):
         """ Return repr(self). """
@@ -27,36 +37,49 @@ class MyList(list):
             return self.values + other.values
         elif isinstance(other, list):
             return self.values + other
-        elif issubclass(int, numbers.Rational):
-            # self.values.append(other)
-            return list(self.values + [other])
+        elif isinstance(other, numbers.Rational):
+            return MyList(self.values + [other])
 
     def __sub__(self, other):
         """ Return [self] && ![other]. """
         src = MyList()
         src = src + self.values
         for i in src:
-            for j in other.values:
-                if i is j:
-                    src.remove(i)
+            if isinstance(other, MyList):
+                for j in other.values:
+                    if i is j:
+                        src.remove(i)
+            elif isinstance(other, list):
+                for j in other:
+                    if i is j:
+                        src.remove(i)
+            elif isinstance(other, numbers.Rational):
+                if other in src:
+                    src.remove(other)
         return src
-        # [[0 if i is j else i & j for i in self.values] for j in other.values]
 
     def __mul__(self, other):
         """ Return [self] && [other]. """
         src = MyList()
         for i in self.values:
-            for j in other.values:
-                if i == j:
+            if isinstance(other, MyList):
+                for j in other.values:
+                    if i is j:
+                        src.values.append(i)
+            elif isinstance(other, list):
+                for j in other:
+                    if i is j:
+                        src.values.append(i)
+            elif isinstance(other, numbers.Rational):
+                if i == other:
                     src.values.append(i)
         return src.values
-        # return list({i if i is j else None for i in self.values for j in other.values})
 
     def __radd__(self, other):
         return self.__add__(other)
 
     def __rsub__(self, other):
-        return -self.__sub__(other)
+        return self.__sub__(other)
 
     def __iadd__(self, other):
         """ Implement [self] += value. """
@@ -70,17 +93,37 @@ class MyList(list):
             self.values[i] -= other
         return self.values
 
+    def __abs__(self):
+        """ Implement abs([self]). """
+        return [x if x > 0 else -x for x in self.values]
+
     def __neg__(self):
         """ Implement [self] *= -1. """
         return [-x for x in self.values]
 
     def __eq__(self, other):
         """ Return [self] == [other]. """
-        return sorted(self.values) == sorted(other.values)
+        x = sorted(self.values)
+        x_size = len(self.values)
+        if isinstance(other, MyList):
+            y = sorted(other.values)
+            y_size = len(other.values)
+        else:
+            y = sorted(other)
+            y_size = len(other)
+        res = True
+        if x_size == y_size:
+            for i in range(len(x)):
+                if x[i] != y[i]:
+                    res = False
+                    break
+        else:
+            res = False
+        return res
 
     def __ne__(self, other):
         """ Return [self] != [other]. """
-        return sorted(self.values) != sorted(other.values)
+        return not (self.values == other.values)
 
     def __gt__(self, other):
         """ Return len([self]) > len([other]). """
@@ -92,13 +135,11 @@ class MyList(list):
 
     def __ge__(self, other):
         """ Return len([self]) >= len([other]). """
-        return len(self.values) >= len(other.values) if len(self.values) != len(other.values) else sorted(
-            self.values) == sorted(other.values)
+        return len(self.values) > len(other.values) if len(self.values) != len(other.values) else sorted(self.values) == sorted(other.values)
 
     def __le__(self, other):
         """ Return len([self]) <= len([other]). """
-        return len(self.values) <= len(other.values) if len(self.values) != len(other.values) else sorted(
-            self.values) == sorted(other.values)
+        return len(self.values) < len(other.values) if len(self.values) != len(other.values) else sorted(self.values) == sorted(other.values)
 
     def append(self, *args):
         """ Append object to the end of the list. """
@@ -138,54 +179,3 @@ class MyList(list):
         The reverse flag can be set to sort in descending order. """
         self.values = sorted(self.values, key=key) if reverse is False else sorted(self.values, key=lambda x: -x)
         return self.values
-
-    # def __repr__(self):
-    #     """ Return repr(self). """
-    #     return str(self.seq)
-
-    # def __add__(self, other):
-    #     """ Return self+value. """
-    #     pass
-    #
-    # def __iadd__(self, other):
-    #     """ Implement self+=value. """
-    #     pass
-    #
-    # def __radd__(self, other):
-    #     pass
-    #
-    # def __repr__(self):
-    #     """ Return repr(self). """
-    #     pass
-
-
-if __name__ == '__main__':
-    a = MyList(1, 2, 3)
-    b = MyList(3, 4, 5)
-    print(MyList(1, 2, 3))
-    print(a + b)
-    print(a + [4, 5, 6])
-    print(a + 6)
-    print(a - b)
-    print(a * b)
-    print(-a)
-    a += 3
-    print(a)
-    b -= 3
-    print(b)
-    print(MyList(1, 2, 3) == MyList(3, 2, 1))
-    print(MyList(1, 2) < MyList(1, 2, 3))
-    print(MyList(1, 2, 3) > MyList(1, 2))
-    print(a.__repr__())
-    a.append(7)
-    print(a)
-    a.remove(5)
-    print(a)
-    a.sort(key=lambda x: -x)
-    # a.sort(reverse=True)
-    print(a)
-    c = MyList(3, 2, 1)
-    print(c)
-    c.sort()
-    print(c)
-    # print(a.index(10))
