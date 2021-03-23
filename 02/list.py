@@ -34,70 +34,155 @@ class MyList(list):
         return str(self.values)
 
     def __add__(self, other):
-        """ Return [self] || [other]. """
+        """ Return [self] + [other]. """
         if isinstance(other, MyList):
-            return self.values + other.values
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] += other.values[i]
+                except IndexError:
+                    break
         elif isinstance(other, list):
-            return self.values + other
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] += other[i]
+                except IndexError:
+                    break
         elif isinstance(other, numbers.Rational):
-            return MyList(self.values + [other])
+            for i in range(len(self.values)):
+                self.values[i] += other
         else:
-            return MyList(self.values + other)
+            pass
+        return MyList(self.values)
+
+        # """ Implement [self] || [other]. """
+        # if isinstance(other, MyList):
+        #     return self.values + other.values
+        # elif isinstance(other, list):
+        #     return self.values + other
+        # elif isinstance(other, numbers.Rational):
+        #     return MyList(self.values + [other])
+        # else:
+        #     return MyList(self.values + other)
 
     def __sub__(self, other):
-        """ Return [self] && ![other]. """
-        src = MyList()
-        src = src + self.values
-        for i in src:
-            if isinstance(other, MyList):
-                for j in other.values:
-                    if i is j:
-                        src.remove(i)
-            elif isinstance(other, list):
-                for j in other:
-                    if i is j:
-                        src.remove(i)
-            elif isinstance(other, numbers.Rational):
-                if other in src:
-                    src.remove(other)
-        return src
+        """ Return [self] - [other]. """
+        if isinstance(other, MyList):
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] -= other.values[i]
+                except IndexError:
+                    break
+        elif isinstance(other, list):
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] -= other[i]
+                except IndexError:
+                    break
+        elif isinstance(other, numbers.Rational):
+            for i in range(len(self.values)):
+                self.values[i] -= other
+        else:
+            pass
+        return MyList(self.values)
+
+        # """ Implement [self] && ![other]. """
+        # src = MyList()
+        # src = src + self.values
+        # for i in src:
+        #     if isinstance(other, MyList):
+        #         for j in other.values:
+        #             if i is j:
+        #                 src.remove(i)
+        #     elif isinstance(other, list):
+        #         for j in other:
+        #             if i is j:
+        #                 src.remove(i)
+        #     elif isinstance(other, numbers.Rational):
+        #         if other in src:
+        #             src.remove(other)
+        # return src
 
     def __mul__(self, other):
-        """ Return [self] && [other]. """
-        src = MyList()
-        for i in self.values:
-            if isinstance(other, MyList):
-                for j in other.values:
-                    if i is j:
-                        src.values.append(i)
-            elif isinstance(other, list):
-                for j in other:
-                    if i is j:
-                        src.values.append(i)
-            elif isinstance(other, numbers.Rational):
-                if i == other:
-                    src.values.append(i)
-        return src.values
+        """ Return [self] * [other]. """
+        if isinstance(other, MyList):
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] *= other.values[i]
+                except IndexError:
+                    break
+        elif isinstance(other, list):
+            for i in range(len(self.values)):
+                try:
+                    self.values[i] *= other[i]
+                except IndexError:
+                    break
+        elif isinstance(other, numbers.Rational):
+            for i in range(len(self.values)):
+                self.values[i] *= other
+        else:
+            pass
+        return MyList(self.values)
+
+        # """ Implement [self] && [other]. """
+        # src = MyList()
+        # for i in self.values:
+        #     if isinstance(other, MyList):
+        #         for j in other.values:
+        #             if i is j:
+        #                 src.values.append(i)
+        #     elif isinstance(other, list):
+        #         for j in other:
+        #             if i is j:
+        #                 src.values.append(i)
+        #     elif isinstance(other, numbers.Rational):
+        #         if i == other:
+        #             src.values.append(i)
+        # return src.values
 
     def __radd__(self, other):
-        """ Implement [self] || [other] for objects with no implemented method. """
+        """ Implement [self] + [other] for objects with no implemented method. """
         return self.__add__(other)
 
     def __rsub__(self, other):
-        """ Implement [self] && ![other] for objects with no implemented method. """
+        """ Implement [self] - [other] for objects with no implemented method. """
+        return self.__sub__(other)
+
+    def __rmul__(self, other):
+        """ Implement [self] * [other] for objects with no implemented method. """
         return self.__sub__(other)
 
     def __iadd__(self, other):
         """ Implement [self] += value. """
-        for i in range(len(self.values)):
-            self.values[i] += other
-        return self.values
+        res = MyList(self.values)
+        if isinstance(other, MyList):
+            res = res + other.values
+        elif isinstance(other, list):
+            res = res + other
+        elif isinstance(other, numbers.Rational):
+            res = res + other
+        return res
 
     def __isub__(self, other):
         """ Implement [self] -= value. """
-        for i in range(len(self.values)):
-            self.values[i] -= other
-        return self.values
+        res = MyList(self.values)
+        if isinstance(other, MyList):
+            res = res - other.values
+        elif isinstance(other, list):
+            res = res - other
+        elif isinstance(other, numbers.Rational):
+            res = res - other
+        return res
+
+    def __imul__(self, other):
+        """ Implement [self] -= value. """
+        res = MyList(self.values)
+        if isinstance(other, MyList):
+            res = res * other.values
+        elif isinstance(other, list):
+            res = res * other
+        elif isinstance(other, numbers.Rational):
+            res = res * other
+        return res
 
     def __abs__(self):
         """ Implement abs([self]). """

@@ -1,33 +1,23 @@
 """Игра крестики-нолики"""
 
 class Game:
-    "Docstring"
     def __init__(self):
         self.x_values = "abcdefdh"
         self.y_values = "12345678"
 
-    def some_func(self):
-        "Docstring"
-
-    def some_func_2(self):
-        "Docstring"
 
 class NewGame(Game):
-    "Docstring"
     def __init__(self, size):
         super().__init__()
         self.__side = 0
         self.__size = size
         self.__counter = 0
-        # self.__field = [[-1] * self.__size] * self.__size
         self.__field = [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
 
     def change_side(self):
-        "Docstring"
         self.__side = (self.__side + 1) % 2
 
     def render(self):
-        "Docstring"
         for y_val in range(self.__size):
             print(self.y_values[:self.__size][y_val], end=' ')
             for x_val in range(self.__size):
@@ -39,7 +29,6 @@ class NewGame(Game):
         print()
 
     def move(self):
-        "Docstring"
         x_move = None
         y_move = None
 
@@ -56,6 +45,7 @@ class NewGame(Game):
             except IndexError:
                 continue
             if len(input_str) != 2:
+                print("Повторите еще раз ваш ход. Длина ввода должна содержать 2 символа. \n")
                 continue
 
             x_move = input_str[0]
@@ -63,26 +53,27 @@ class NewGame(Game):
             break
 
         try:
-            y_val = self.x_values.index(x_move)
-            x_val = self.y_values.index(y_move)
+            x_val = self.x_values.index(x_move)
+            y_val = self.y_values.index(y_move)
+            print(x_move, y_move)
+            print(x_val, y_val)
         except ValueError:
-            print("Повторите еще раз ваш ход\n")
-            return
+            print("Повторите еще раз ваш ход. Введенное значение превышает размер поля для игры. \n")
+            return -1
 
         try:
             if self.__field[y_val][x_val] >= 0:
                 raise IndexError
             self.__field[y_val][x_val] = side_val
         except IndexError:
-            print("Повторите еще раз ваш ход\n")
-            return
+            print("\nПовторите еще раз ваш ход. Клетка уже занята.")
+            return -1
 
         print(f"\nВаш ход: x = {x_val + 1}, y = {y_val + 1}")
         self.__counter += 1
         return
 
     def move_test(self, x_val, y_val):
-        "Docstring"
         if self.__counter == self.__size ** 2:
             return 0
         side_val = self.__side
@@ -94,15 +85,13 @@ class NewGame(Game):
                 raise IndexError
             self.__field[y_val][x_val] = side_val
         except IndexError:
-            print("Повторите еще раз ваш ход\n")
-            return
+            raise
 
-        print(f"\nВаш ход: x = {x_val + 1}, y = {y_val + 1}")
+        print(f"\nВаш ход: x = {y_val + 1}, y = {x_val + 1}")
         self.__counter += 1
         return
 
     def check_win(self):
-        "Docstring"
         line_ex = [self.__side] * 3
 
         for i in self.__field:
@@ -127,19 +116,23 @@ class NewGame(Game):
 
         return False
 
+
 if __name__ == '__main__':
-    gg = NewGame(3)
-    gg.render()
+    game = NewGame(3)
+    print("\nПравила игры: игроки последовательно ходят на поле размерами 3x3.")
+    print("Каждый ход должен состоять из двух символов, например 'a1', 'c3'.\n")
+    game.render()
 
     while True:
-        mov = gg.move()
+        mov = game.move()
         if mov == -1:
-            break
+            game.render()
+            continue
         if mov == 0:
             print("Ничья")
             break
-        gg.render()
-        if gg.check_win() is True:
-            print(f"\nПобеда игрока: {gg._NewGame__side}!")
+        game.render()
+        if game.check_win() is True:
+            print(f"\nПобеда игрока: {game._NewGame__side}!")
             break
-        gg.change_side()
+        game.change_side()
