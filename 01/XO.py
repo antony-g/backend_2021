@@ -1,10 +1,19 @@
+"""Игра крестики-нолики"""
+
 class Game:
+    "Docstring"
     def __init__(self):
         self.x_values = "abcdefdh"
         self.y_values = "12345678"
-        pass
+
+    def some_func(self):
+        "Docstring"
+
+    def some_func_2(self):
+        "Docstring"
 
 class NewGame(Game):
+    "Docstring"
     def __init__(self, size):
         super().__init__()
         self.__side = 0
@@ -14,13 +23,15 @@ class NewGame(Game):
         self.__field = [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
 
     def change_side(self):
+        "Docstring"
         self.__side = (self.__side + 1) % 2
 
     def render(self):
-        for y in range(self.__size):
-            print(self.y_values[:self.__size][y], end=' ')
-            for x in range(self.__size):
-                print('O' if self.__field[y][x] == 0 else 'X' if self.__field[y][x] == 1 else '_', end=' ')
+        "Docstring"
+        for y_val in range(self.__size):
+            print(self.y_values[:self.__size][y_val], end=' ')
+            for x_val in range(self.__size):
+                print('O' if self.__field[y_val][x_val] == 0 else 'X' if self.__field[y_val][x_val] == 1 else '_', end=' ')
             print()
         print(' ', end=' ')
         for i in range(self.__size):
@@ -28,48 +39,50 @@ class NewGame(Game):
         print()
 
     def move(self):
-        move_x = None
-        move_y = None
+        "Docstring"
+        x_move = None
+        y_move = None
 
         if self.__counter == self.__size ** 2:
             return 0
         side_val = self.__side
         side_str = "O" if self.__side == 0 else "X" if self.__side == 1 else ValueError
         print(f"\nХод игрока: {self.__side} ({side_str})")
-        while(True):
-            str = input()
+        while True:
+            input_str = input()
             try:
-                if str[0] == "q" or str[0] == "e":
+                if input_str[0] == "q" or input_str[0] == "e":
                     return -1
             except IndexError:
                 continue
-            if len(str) != 2:
+            if len(input_str) != 2:
                 continue
-            else:
-                move_x = str[0]
-                move_y = str[1]
-                break
+
+            x_move = input_str[0]
+            y_move = input_str[1]
+            break
 
         try:
-            x = self.x_values.index(move_x)
-            y = self.y_values.index(move_y)
+            y_val = self.x_values.index(x_move)
+            x_val = self.y_values.index(y_move)
         except ValueError:
             print("Повторите еще раз ваш ход\n")
             return
 
         try:
-            if self.__field[y][x] >= 0:
+            if self.__field[y_val][x_val] >= 0:
                 raise IndexError
-            self.__field[y][x] = side_val
+            self.__field[y_val][x_val] = side_val
         except IndexError:
             print("Повторите еще раз ваш ход\n")
             return
 
-        print(f"\nВаш ход: x = {x + 1}, y = {y + 1}")
+        print(f"\nВаш ход: x = {x_val + 1}, y = {y_val + 1}")
         self.__counter += 1
         return
 
-    def move_test(self, x, y):
+    def move_test(self, x_val, y_val):
+        "Docstring"
         if self.__counter == self.__size ** 2:
             return 0
         side_val = self.__side
@@ -77,18 +90,19 @@ class NewGame(Game):
         print(f"\nХод игрока: {self.__side} ({side_str})")
 
         try:
-            if self.__field[y][x] >= 0:
+            if self.__field[y_val][x_val] >= 0:
                 raise IndexError
-            self.__field[y][x] = side_val
+            self.__field[y_val][x_val] = side_val
         except IndexError:
             print("Повторите еще раз ваш ход\n")
             return
 
-        print(f"\nВаш ход: x = {x + 1}, y = {y + 1}")
+        print(f"\nВаш ход: x = {x_val + 1}, y = {y_val + 1}")
         self.__counter += 1
         return
 
     def check_win(self):
+        "Docstring"
         line_ex = [self.__side] * 3
 
         for i in self.__field:
@@ -117,7 +131,7 @@ if __name__ == '__main__':
     gg = NewGame(3)
     gg.render()
 
-    while(True):
+    while True:
         mov = gg.move()
         if mov == -1:
             break
@@ -125,7 +139,7 @@ if __name__ == '__main__':
             print("Ничья")
             break
         gg.render()
-        if gg.check_win() == True:
+        if gg.check_win() is True:
             print(f"\nПобеда игрока: {gg._NewGame__side}!")
             break
         gg.change_side()
