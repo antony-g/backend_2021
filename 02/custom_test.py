@@ -8,11 +8,11 @@ class TestClass(metaclass=Custom):
     some_variable = None
 
     def some_func(self):
-        "Some func"
+        """Some func"""
         return self.some_variable
 
     def some_func_2(self):
-        "Empty func"
+        """Some empty func"""
 
 
 class MyTestCase(unittest.TestCase):

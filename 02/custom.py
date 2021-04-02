@@ -8,8 +8,9 @@ class Custom(ABCMeta):
     def __new__(cls, *args, **kwargs):
         name = "Custom{0}".format(args[0])
         bases = args[1]
-        classdict = {key if key[0:2] == "__"
+        class_dict = {key if key[:2] == "__"
                 else "custom_{0}".format(key): value
                 for key, value in args[2].items()}
 
-        return super().__new__(cls, name, bases, classdict)
+
+        return super().__new__(cls, name, bases, class_dict)

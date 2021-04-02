@@ -25,34 +25,37 @@ class MyList(list):
         """ Init an instance of class. """
         super().__init__()
         if args is None:
-            self.values = list()
+            self.values = list()  # self = list()
         else:
-            self.values = list(flatten(args))
+            self.values = list(flatten(args))  ## self = list(flatten(args))
+
 
     def __repr__(self):
         """ Return repr(self). """
-        return str(self.values)
+        return str(self)
 
     def __add__(self, other):
         """ Return [self] + [other]. """
+        res = MyList()
         if isinstance(other, MyList):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] += other.values[i]
+                    res.append(self.values[i] + other.values[i])
                 except IndexError:
                     break
+
         elif isinstance(other, list):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] += other[i]
+                    res.append(self.values[i] + other[i])
                 except IndexError:
                     break
         elif isinstance(other, numbers.Rational):
             for i in range(len(self.values)):
-                self.values[i] += other
+                res.append(self.values[i] + other)
         else:
             pass
-        return MyList(self.values)
+        return res
 
         # """ Implement [self] || [other]. """
         # if isinstance(other, MyList):
@@ -66,24 +69,26 @@ class MyList(list):
 
     def __sub__(self, other):
         """ Return [self] - [other]. """
+        res = MyList()
         if isinstance(other, MyList):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] -= other.values[i]
+                    res.append(self.values[i] - other.values[i])
                 except IndexError:
                     break
+
         elif isinstance(other, list):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] -= other[i]
+                    res.append(self.values[i] - other[i])
                 except IndexError:
                     break
         elif isinstance(other, numbers.Rational):
             for i in range(len(self.values)):
-                self.values[i] -= other
+                res.append(self.values[i] - other)
         else:
             pass
-        return MyList(self.values)
+        return res
 
         # """ Implement [self] && ![other]. """
         # src = MyList()
@@ -104,24 +109,26 @@ class MyList(list):
 
     def __mul__(self, other):
         """ Return [self] * [other]. """
+        res = MyList()
         if isinstance(other, MyList):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] *= other.values[i]
+                    res.append(self.values[i] * other.values[i])
                 except IndexError:
                     break
+
         elif isinstance(other, list):
             for i in range(len(self.values)):
                 try:
-                    self.values[i] *= other[i]
+                    res.append(self.values[i] * other[i])
                 except IndexError:
                     break
         elif isinstance(other, numbers.Rational):
             for i in range(len(self.values)):
-                self.values[i] *= other
+                res.append(self.values[i] * other)
         else:
             pass
-        return MyList(self.values)
+        return res
 
         # """ Implement [self] && [other]. """
         # src = MyList()
@@ -202,15 +209,15 @@ class MyList(list):
         else:
             y_val = sorted(other)
             y_size = len(other)
-        res = True
         if x_size == y_size:
-            for i in range(x_size):
-                if x_val[i] != y_val[i]:
-                    res = False
-                    break
-        else:
-            res = False
-        return res
+            try:
+                for i in range(max(x_size, y_size)):
+                    if x_val[i] != y_val[i]:
+                        res = False
+                        break
+            except:
+                return False
+        return True
 
     def __ne__(self, other):
         """ Return [self] != [other]. """

@@ -21,21 +21,18 @@ class MyListOperatorTest(unittest.TestCase):
         j = 3
         k = i + j
         self.assertEqual(k, MyList(4, 5))
-        # self.assertEqual(k, MyList(1, 2, 3))
 
     def test_add_2(self):
         i = MyList(1, 2, 3)
         j = [1, 2, 3]
         k = i + j
         self.assertEqual(k, MyList(2, 4, 6))
-        # self.assertEqual(k, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_3(self):
         i = MyList(1, 2, 3)
         j = MyList(1, 2, 3)
         k = i + j
         self.assertEqual(k, MyList(2, 4, 6))
-        # self.assertEqual(k, MyList(1, 2, 3, 4, 5, 6))
 
     def test_add_4(self):
         i = MyList(1, 2, 3)
@@ -45,8 +42,20 @@ class MyListOperatorTest(unittest.TestCase):
 
     def test_add_5(self):
         i = MyList(1, 2, 3)
+        j = MyList(1, 2)
+        k = j + i
+        self.assertEqual(k, MyList(2, 4, 3))
+
+    def test_add_6(self):
+        i = MyList(1, 2, 3)
         j = [1, 2]
         k = i + j
+        self.assertEqual(k, MyList(2, 4, 3))
+
+    def test_add_7(self):
+        i = MyList(1, 2, 3)
+        j = [1, 2]
+        k = j + i
         self.assertEqual(k, MyList(2, 4, 3))
 
     def test_sub_1(self):
@@ -78,8 +87,20 @@ class MyListOperatorTest(unittest.TestCase):
 
     def test_sub_5(self):
         i = MyList(1, 2, 3)
+        j = MyList(1, 2)
+        k = j - i
+        self.assertEqual(k, MyList(0, 0, 3))
+
+    def test_sub_6(self):
+        i = MyList(1, 2, 3)
         j = [1, 2]
         k = i - j
+        self.assertEqual(k, MyList(0, 0, 3))
+
+    def test_sub_7(self):
+        i = MyList(1, 2, 3)
+        j = [1, 2]
+        k = j - i
         self.assertEqual(k, MyList(0, 0, 3))
 
     def test_mul_1(self):
@@ -103,16 +124,28 @@ class MyListOperatorTest(unittest.TestCase):
         self.assertEqual(k, MyList(1, 4, 9))
         # self.assertEqual(k, MyList(3))
 
-    def test_sub_4(self):
+    def test_mul_4(self):
         i = MyList(1, 2, 3)
         j = MyList(1, 2)
         k = i * j
         self.assertEqual(k, MyList(1, 4, 3))
 
-    def test_sub_5(self):
+    def test_mul_5(self):
+        i = MyList(1, 2, 3)
+        j = MyList(1, 2)
+        k = j * i
+        self.assertEqual(k, MyList(1, 4, 3))
+
+    def test_mul_6(self):
         i = MyList(1, 2, 3)
         j = [1, 2]
         k = i * j
+        self.assertEqual(k, MyList(1, 4, 3))
+
+    def test_mul_7(self):
+        i = MyList(1, 2, 3)
+        j = [1, 2]
+        k = j * i
         self.assertEqual(k, MyList(1, 4, 3))
 
     def test_iadd_1(self):
@@ -135,9 +168,14 @@ class MyListOperatorTest(unittest.TestCase):
         i += MyList(1, 2)
         self.assertEqual(i, MyList(2, 4, 3))
 
-    def test_iadd_4(self):
+    def test_iadd_5(self):
         i = MyList(1, 2, 3)
         i += [1, 2]
+        self.assertEqual(i, MyList(2, 4, 3))
+
+    def test_iadd_6(self):
+        i = [1, 2]
+        i += MyList(1, 2, 3)
         self.assertEqual(i, MyList(2, 4, 3))
 
     def test_isub_1(self):
@@ -165,6 +203,11 @@ class MyListOperatorTest(unittest.TestCase):
         i -= [1, 2]
         self.assertEqual(i, MyList(0, 0, 3))
 
+    def test_isub_6(self):
+        i = [1, 2]
+        i -= MyList(1, 2, 3)
+        self.assertEqual(i, MyList(0, 0, 3))
+
     def test_imul_1(self):
         i = MyList(1, 2, 3)
         i *= 3
@@ -188,6 +231,11 @@ class MyListOperatorTest(unittest.TestCase):
     def test_imul_5(self):
         i = MyList(1, 2, 3)
         i *= [1, 2]
+        self.assertEqual(i, MyList(1, 4, 3))
+
+    def test_imul_6(self):
+        i = [1, 2]
+        i *= MyList(1, 2, 3)
         self.assertEqual(i, MyList(1, 4, 3))
 
     def test_abs(self):
