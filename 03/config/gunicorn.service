@@ -1,0 +1,17 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=dabnd
+Group=www-data
+WorkingDirectory=/mnt/c/Main/IT/Python/Backend Python/git/backend_2021/03
+ExecStart=/home/dabnd/sphere-mail/msu_python_backend_2021/3/venv/bin/gunicorn \
+          --access-logfile /mnt/c/Main/IT/Python/Backend Python/git/backend_2021/03/log \
+          --workers 9 \
+          --bind unix:/run/gunicorn.sock \
+          app:application
+
+[Install]
+WantedBy=multi-user.target

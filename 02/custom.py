@@ -12,5 +12,4 @@ class Custom(ABCMeta):
                 else "custom_{0}".format(key): value
                 for key, value in args[2].items()}
 
-
         return super().__new__(cls, name, bases, class_dict)
