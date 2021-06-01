@@ -1,0 +1,12 @@
+__pycache__/
+.idea/
+venv/
+tmp/
+__*/
+*.ini
+*.txt
+*.jpg
+*.zip
+*.pyc
+
+local_settings.py
