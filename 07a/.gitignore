@@ -1,6 +1,5 @@
 __pycache__/
 /venv
 *.pyc
-*.txt
 
 local_settings.py

@@ -4,9 +4,9 @@ venv/
 tmp/
 __*/
 *.ini
-*.txt
 *.jpg
 *.zip
 *.pyc
 
+Linux Bash.txt
 local_settings.py

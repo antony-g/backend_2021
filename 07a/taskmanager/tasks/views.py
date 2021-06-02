@@ -13,7 +13,7 @@ from .models import Task
 from .serializers import TaskSerializer
 
 
-#URL /
+# URL /
 @define_usage(returns={'url_usage': 'Dict'})
 @api_view(['GET'])
 @permission_classes((AllowAny,))

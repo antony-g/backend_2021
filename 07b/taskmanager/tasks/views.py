@@ -12,10 +12,18 @@ from .decorators import define_usage
 
 
 class NewTaskViewSet(viewsets.ModelViewSet):
+    """Структура API запросов:
+    API: GET http://localhost:8000
+    All: GET http://localhost:8000/api/
+    Select: GET http://localhost:8000/api/1/
+    New: POST http://localhost:8000/api/ + body ('description', 'due', 'user')
+    Update: PUT http://localhost:8000/api/1/ + body ('description', 'due', 'user')
+    Delete: DELETW http://localhost:8000/api/1/
+    """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-
+# URL api/signin/
 @define_usage(params={'username': 'String', 'password': 'String'},
               returns={'authenticated': 'Bool', 'token': 'Token String'})
 @api_view(['POST'])
