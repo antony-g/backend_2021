@@ -14,6 +14,13 @@ from .serializers import TaskSerializer
 
 
 # URL /
+@api_view(['GET'])
+@permission_classes((AllowAny,))
+def index(request):
+    return Response("Hello world!")
+
+
+# URL /api/
 @define_usage(returns={'url_usage': 'Dict'})
 @api_view(['GET'])
 @permission_classes((AllowAny,))
@@ -26,7 +33,7 @@ def api_index(request):
     return Response(details)
 
 
-# URL /signin/
+# URL /api/signin/
 @define_usage(params={'username': 'String', 'password': 'String'},
               returns={'authenticated': 'Bool', 'token': 'Token String'})
 @api_view(['POST'])
@@ -45,8 +52,18 @@ def api_signin(request):
     else:
         return Response({'authenticated': False, 'token': None})
 
+    # Авторизация через браузер:
+    # GET http://localhost:8000/api/signin/
+    #
+    # Media type: "application/json"
+    # Content:
+    # {
+    #     "username": "",
+    #     "password": ""
+    # }
 
-# URL /all/
+
+# URL /api/all/
 @define_usage(returns={'tasks': 'Dict'})
 @api_view(['GET'])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
@@ -56,22 +73,32 @@ def api_all_tasks(request):
     return Response({'tasks': tasks.data})
 
 
-# URL /new/
-@define_usage(params={'description': 'String', 'due_in': 'Int'},
+# URL /api/select/
+@define_usage(returns={'tasks': 'Dict'})
+@api_view(['GET'])
+@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
+@permission_classes((IsAuthenticated,))
+def api_select_task(request):
+    task = TaskSerializer(request.user.task_set.get(id=int(request.data['task_id'])))
+    return Response({'task': task.data})
+
+
+# URL /api/create/
+@define_usage(params={'description': 'String', 'due': 'Int'},
               returns={'done': 'Bool'})
 @api_view(['POST'])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
-def api_new_task(request):
+def api_create_task(request):
     task = Task(user=request.user,
                 description=request.data['description'],
-                due=date.today() + timedelta(days=int(request.data['due_in'])))
+                due=date.today() + timedelta(days=int(request.data['due'])))
     task.save()
     return Response({'done': True})
 
 
-# URL /update/
-@define_usage(params={'task_id': 'Int', 'description': 'String', 'due_in': 'Int'},
+# URL /api/update/
+@define_usage(params={'task_id': 'Int', 'description': 'String', 'due': 'Int'},
               returns={'done': 'Bool'})
 @api_view(['PUT'])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
@@ -83,14 +110,14 @@ def api_update_task(request):
     except:
         pass
     try:
-        task.due = date.today() + timedelta(days=int(request.data['due_in']))
+        task.due = date.today() + timedelta(days=int(request.data['due']))
     except:
         pass
     task.save()
     return Response({'done': True})
 
 
-# URL /delete/
+# URL /api/delete/
 @define_usage(params={'task_id': 'Int'},
               returns={'done': 'Bool'})
 @api_view(['DELETE'])

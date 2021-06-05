@@ -24,11 +24,10 @@ LOCAL_APPS = [
     'tasks',
     'users',
 ]
-
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+ROOT_URLCONF = 'application.urls'
 AUTH_USER_MODEL = 'users.User'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 MIDDLEWARE = [
@@ -41,7 +40,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'application.urls'
 
 TEMPLATES = [
     {
