@@ -23,11 +23,11 @@ Python может применяться в большинстве областей разработки, обладает высокой соч
 
 ## Занятия
 
-### [1. Интенсив по Python](tree/master/01)
+### [1. Интенсив по Python](https://github.com/antony-g/backend_2021/tree/master/01)
 
-### [2. Объектная модель, метапрограммирование, память](tree/master/02)
+### [2. Объектная модель, метапрограммирование, память](https://github.com/antony-g/backend_2021/tree/master/02)
 
-### [3. Основы HTTP. Сетевое взаимодействие](tree/master/03)
+### [3. Основы HTTP. Сетевое взаимодействие](https://github.com/antony-g/backend_2021/tree/master/03)
 
 ### 4. Application server. Django
 
@@ -35,16 +35,16 @@ Python может применяться в большинстве областей разработки, обладает высокой соч
 
 ### 6. ORM. Миграции
 
-### [7. Разработка API. Django Rest Framework](tree/master/07b)
+### [7. Разработка API. Django Rest Framework](https://github.com/antony-g/backend_2021/tree/master/07b)
 
-### [8. Авторизация в Web приложениях](tree/master/08)
+### [8. Авторизация в Web приложениях](https://github.com/antony-g/backend_2021/tree/master/08)
 
 ### 9. Потоки и процессы. Асинхронное программирование
 
-### [10. Реал-тайм сообщения. Очереди и задачи](tree/master/10)
+### [10. Реал-тайм сообщения. Очереди и задачи](https://github.com/antony-g/backend_2021/tree/master/10)
 
-### [11. Поисковые движки. Реализация или интеграция](tree/master/11)
+### [11. Поисковые движки. Реализация или интеграция](https://github.com/antony-g/backend_2021/tree/master/11)
 
-### [12. Микросервисная архитектура. Контейнеризация. CI/CD](tree/master/12)
+### [12. Микросервисная архитектура. Контейнеризация. CI/CD](https://github.com/antony-g/backend_2021/tree/master/12)
 
 ### 13. Безопасность в веб-приложениях
